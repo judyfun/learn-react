@@ -6,13 +6,18 @@
     </head>
     <body>
         <div id="test"></div>
+        <!-- Introducing react core lib-->
         <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
         <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
         <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 
         <script type="text/babel">
+            // Creating virtual DOM
             const VDOM = <h1>Hello, React</h1>
             const VDOM1 = <h1>bye,bye</h1>
+            // Render the virtual DOM to a container
             ReactDOM.render(VDOM, document.getElementById("test"))    
             ReactDOM.render(VDOM1, document.getElementById("test"))   
         </script>
