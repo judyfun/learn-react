@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>jsx_syntax</title>
+        <style>
+            .title{
+                background-color: orange;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="test"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+
+        <script type="text/babel">
+            const myId = 'meLnIne'
+            const myData = 'Hello, React 1'
+            // Creating virtual DOM
+            const VDOM = (
+                <div>
+                    <h2 className="title" id={myId.toLocaleUpperCase()}>
+                        <span style={{color:'white', fontSize:'40px'}}>{myData.toLocaleLowerCase()}</span>
+                    </h2>
+                    <h2 className="title" id={myId.toLocaleUpperCase()}>
+                        <span>{myData.toLocaleLowerCase()}</span>
+                    </h2>
+                    <input />
+                    <Good></Good> // Will throw an error.
+                </div>
+            )
+
+            // Render the virtual DOM to a container
+            ReactDOM.render(VDOM, document.getElementById("test"))    
+            /*
+            jsx syntax:
+                1, When you defining the DOM, do not use quote marker.
+                2, When mixed with JS expression in the label, use {}.
+                3, When you specify a style name, do not use class, use className.
+                4, Internal style, like style={{key:value}} format.
+                5, Only one root lable.
+                6, Each lable have to be closed.
+                7, The first letter of a labal:
+                    (1), Starting with a lower case letter, it will be transformed to a label in HTML with the same name, otherwise, throw an error.
+                    (2), Starting with a capital case letter, it will render a component accordingly to the name, if the component has not been defined, it will throw an error.
+            */
+        </script>
+    </body>
+</html>
