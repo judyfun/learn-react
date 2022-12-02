@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>jsx_excise_1</title>
+    </head>
+    <body>
+        <div id="test"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+
+        <script type="text/babel">
+            /*
+                The difference between JS code and JS expression
+                1, JS expression: A JS expression can produce a value, it can be put on anywhere it needs a value
+                e.g.
+                    (1), a
+                    (2), a+b
+                    (3), demo(1)
+                    (4), arr.map()
+                    (5), function test() {}
+
+                2,  JS code:
+                e.g.
+                    (1), if(){}
+                    (2), for (){}
+                    (3), swith() {case:xxx}
+            */
+            const data = ['Angular', 'React', 'Vue']
+            // You can pass a Object to a virtual DOM
+            const obj = {name1:'Angular', name2:'React', name3:'Vue'}
+            // Creating virtual DOM
+            const VDOM = (
+                <div>
+                    <h2>Front-end framework list</h2>
+                    <ul>
+                        {
+                            data.map((item,index)=>{
+                                return <li key={index}>{item}</li>
+                            })
+                        }
+                    </ul>
+
+                </div>
+            )
+
+            // Render the virtual DOM to a container
+            ReactDOM.render(VDOM, document.getElementById("test"))    
+            /*
+            
+            */
+        </script>
+    </body>
+</html>
