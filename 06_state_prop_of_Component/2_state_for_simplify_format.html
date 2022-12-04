@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>function_component</title>
+    </head>
+    <body>
+        <div id="test"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Creating a class virtual DOM
+            class Weather extends React.Component{
+
+                state= {isHot: false, wind: 'breeze'}
+
+                render(){
+                    const {isHot, wind} = this.state
+                    return <h2 onClick={this.changeWeather}>Today's weather is {isHot ? 'super hot' : 'cool'} and {wind}</h2>
+                }
+
+                // Custom function ---- You need to use the assignment statement+anonymous function
+                changeWeather = ()=>{
+                    const isHot = this.state.isHot
+                    this.setState({isHot: !isHot})
+                }
+            }
+
+            ReactDOM.render(<Weather/>, document.getElementById('test'))
+        </script>
+    </body>
+</html>
