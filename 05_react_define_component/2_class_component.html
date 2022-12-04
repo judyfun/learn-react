@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>function_component</title>
+    </head>
+    <body>
+        <div id="test"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Creating a class virtual DOM
+            class MyComponent extends React.Component{
+                
+                render() {
+                    /*
+                    Where to put the render() function ? -- It wil be put on the prototype of MyComponent object, will be used by the instance.
+                    Who is the this in render() ? -- The object of MyComponent
+                    */
+                    console.log("this in render:", this)
+                    return <h2>This is a component which is definde by a class(Complicated component)</h2>
+                }
+            }
+
+            ReactDOM.render(<MyComponent/>, document.getElementById('test'))
+            /*
+            After executed the ReactDOM.render(<MyComponent />, ...)..., what had happend?
+                1, React will parse the labal component, and then found the MyComponent component.
+                2, Then found the component is definded by a class, then new a instance of this class. and then will call the render() function of the prototyep via the instance.
+                3, Reace will transform the virtual DOM to real DOM, then present it on the page.
+            */
+        </script>
+    </body>
+</html>
