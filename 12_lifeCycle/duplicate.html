@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1_function</title>
+</head>
+<body>
+<div id="test"></div>
+
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+
+    // 生命周期回调函数  == 生命周期钩子函数  == 生命周期函数 == 生命周期钩子
+    class Life extends React.Component {
+
+        state = {opacity: 1}
+        rest = () => {
+            ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+        }
+
+        active = () => {
+            setInterval(() => {
+                console.log('@')
+                let {opacity} = this.state
+                opacity -= 0.1
+                if (opacity <= 0) opacity = 1
+                this.setState({opacity})
+
+            }, 200)
+        }
+
+        componentDidMount() {
+            this.timer = setInterval(() => {
+                console.log('before')
+                let {opacity} = this.state
+                opacity -= 0.1
+                if (opacity <= 0) opacity = 1
+                this.setState({opacity})
+                console.log('after')
+
+            }, 200)
+        }
+
+        componentWillUnmount() {
+            clearInterval(this.timer)
+        }
+
+        render() {
+            return (
+                <div>
+                    <h2 style={{opacity: this.state.opacity}}>The weather is not nice today!</h2>
+                    <button onClick={this.rest}>Go to sleep</button>
+                    < button onClick={this.active}>Start to active</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Life/>, document.getElementById('test'))
+</script>
+</body>
+</html>

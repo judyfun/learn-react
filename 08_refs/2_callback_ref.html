@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2_callback_ref</title>
+</head>
+<body>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    class Demo extends React.Component {
+        showData = () => {
+            console.log(this)
+            // alert(this.input1.value)
+            const {input1} = this
+            alert(input1.value)
+        }
+
+        showRightData = () => {
+            const {input2} = this
+            alert(input2.value)
+        }
+
+        render() {
+            return (
+                <div>
+                    <input ref={(a) => {
+                        console.log(a)
+                    }} type="text"/>
+
+                    <input ref={(currentNode) => {
+                        this.input1 = currentNode
+                    }}/> &nbsp;
+                    <button onClick={this.showData}>Click me to show the left input content</button>
+                    &nbsp;
+                    <input ref={c => this.input2 = c} onBlur={this.showRightData}/>&nbsp;
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test1'))
+</script>
+</body>
+</html>

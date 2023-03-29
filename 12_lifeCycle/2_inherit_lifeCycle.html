@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2_inherit_lifeCycle(old fashion)</title>
+</head>
+<body>
+<div id="test"></div>
+
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    /**
+     *  1. 初始化阶段： 由ReactDOM.render() 触发 ---- 初次渲染
+     *    1, constructor()
+     *    2, componentWillMount()
+     *    3, render()
+     *    4, componentDidMount()   ======> 常用，一般在这个hook中做一些初始化的事
+     *                              》 开启定时器
+     *                              》 发送网络请求
+     *                              》 订阅消息
+     *  2. 更新阶段：由组件内部this.setState()或父组件render触发
+     *      1， shouldComponentUpdate()
+     *      2,  componentWillUpdate()
+     *      3,  render()  ======》 必须
+     *      4,  componentDidUpdate()
+     *  3. 卸载组件：由ReactDOM.unmountComponentAtNode()触发
+     *      1，  componentWillUnmount()   =======》 常用，一般在这个hook中做一些收尾的事情
+     *                                》 关闭定时器
+     *                                》 取消订阅消息
+     */
+    class A extends React.Component {
+
+        state = {car: "BMW"}
+
+        changeCar = () => {
+            this.setState({car: 'Mazda'})
+        }
+
+        render() {
+            return (
+                <div>
+
+                    <button onClick={this.changeCar}>This is A Component</button>
+                    <B carName={this.state.car}/>
+                </div>
+            )
+        }
+    }
+
+
+    class B extends React.Component {
+        componentWillReceiveProps(props) {
+            console.log('B---componentWillReceiveProps', props)
+        }
+
+        render() {
+            return (
+                <div>
+                    <h2>This a {this.props.carName}</h2>
+                    <button>This is B Component</button>
+                </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<A/>, document.getElementById("test"))
+</script>
+</body>
+</html>

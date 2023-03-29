@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1_diffing_algorithm</title>
+</head>
+<body>
+<div id="test"></div>
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+
+    class Time extends React.Component {
+        state = {date: new Date()}
+
+        componentDidMount() {
+            setInterval(() => {
+                this.setState({
+                    date: new Date()
+                })
+            }, 1000)
+        }
+
+
+        render() {
+            return (
+                <div>
+                    <h1>hello</h1>
+                    <input type="text"></input>
+                    <span>
+                    The time is: {this.state.date.toTimeString()}
+                        <input/>
+                  </span>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Time/>, document.getElementById("test"))
+
+</script>
+</body>
+</html>

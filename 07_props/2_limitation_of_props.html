@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>function_component</title>
+    </head>
+    <body>
+        <div id="test1"></div>
+        <div id="test2"></div>
+        <div id="test3"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+        <!-- production version -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script>
+
+        <script type="text/babel">
+            class Person extends React.Component{
+                render () {
+                    console.log(this)
+                    const  {name, gender, age} = this.props
+                    // props is read only
+                    // this.props.name = 'david' // Will throw an error, due to props is ready only
+                    return (
+                        <ul>
+                            <li>Name: {name}</li>
+                            <li>Gender: {gender}</li>
+                            <li>Age: {age+1}</li>                                
+                        </ul>
+                    )
+                }
+            }
+
+            // Limit the attribute of the prop
+            Person.propTypes = {
+                name: PropTypes.string.isRequired,
+                gender: PropTypes.string,
+                age: PropTypes.number,
+                speak: PropTypes.func
+            }
+
+            // Define the default value
+            Person.defaultProps = {
+                gender: 'M',
+                age: 18
+            }
+
+            function speak () {
+                console.log('I am speaking now')
+            }
+
+            ReactDOM.render(<Person name='Jack' gender='M' age={19} speak={speak}/>, document.getElementById('test1'))
+            ReactDOM.render(<Person name='Tom' gender='M' age={32}/>, document.getElementById('test2'))
+
+            const p = {name:'Lee', age:20, gender:'M'}
+            console.log('@===', {...p}) 
+            ReactDOM.render(<Person {...p}/>, document.getElementById('test3'))
+            // ReactDOM.render(<Person name={p.name} gender={p.gender} age={p.age} />,document.getElementById('test3'))
+        </script>
+    </body>
+</html>

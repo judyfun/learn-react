@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo1</title>
+</head>
+<body>
+<div id="test"></div>
+
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+
+    class Count extends React.Component {
+
+        constructor() {
+            console.log("Count---constructor")
+            super();
+            this.state = {count: 0}
+        }
+
+        componentWillMount() {
+            console.log("Count---componentWillMount")
+        }
+
+        componentDidMount() {
+            console.log("Count---componentDidMount")
+        }
+
+        componentWillUnmount() {
+            console.log("Count---componentWillUnmount")
+        }
+
+        shouldComponentUpdate() {
+            console.log("Count---shouldComponentUpdate")
+            return false
+
+        }
+
+        componentWillUpdate() {
+            console.log("Count---componentWillUpdate")
+        }
+
+        componentDidUpdate() {
+            console.log("Count---componentDidUpdate")
+        }
+
+        adding = () => {
+            const {count} = this.state
+            this.setState({count: count + 1})
+        }
+
+        remove = () => {
+            ReactDOM.unmountComponentAtNode(document.getElementById("test"))
+        }
+
+        force = () => {
+            this.forceUpdate()
+        }
+
+        render() {
+            console.log("Count---render")
+            return (
+                <div>
+                    <h2>Subtotal: {this.state.count}</h2>
+                    <button onClick={this.adding}>Click to plus 1</button>
+                    <button onClick={this.remove}>Unmount component</button>
+                    <button onClick={this.force}>Force update</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Count/>, document.getElementById('test'))
+</script>
+
+
+</body>
+</html>

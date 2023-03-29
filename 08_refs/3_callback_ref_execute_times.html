@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3_callback_ref_execute_times</title>
+</head>
+<body>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    class Demo extends React.Component {
+
+        state = {isHot: false}
+
+        showData = () => {
+            console.log(this)
+            // alert(this.input1.value)
+            const {input1} = this
+            alert(input1.value)
+        }
+        changeWeather = () => {
+            const {isHot} = this.state
+            this.setState({isHot: !isHot})
+        }
+
+        saveInput = (c) => {
+            this.input1 = c;
+            console.log(c)
+        }
+
+        render() {
+            const {isHot} = this.state
+            return (
+                <div>
+                    <h2>Today is {isHot ? 'super hot' : 'cool'}</h2>
+                    {/*https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs*/}
+                    {/*<input ref={(c)=>{this.input1 = c; console.log(c)}} /> <br/><br/>*/}
+                    <input ref={this.saveInput}/> <br/><br/>
+                    <button onClick={this.showData}>Click me to show the left input content</button>
+                    &nbsp;
+                    <button onClick={this.changeWeather}>Change the weather</button>
+                    &nbsp;
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test1'))
+</script>
+</body>
+</html>

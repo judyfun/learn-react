@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>function_component</title>
+    </head>
+    <body>
+        <div id="test"></div>
+        <!-- Introducing react core lib-->
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <!-- Introducing react-dom lib-->
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <!-- Introducing babel lib which is used for transform JS from JSX-->
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Creating a class virtual DOM
+            class Weather extends React.Component{
+                // How many times the constructor() will be called?  ----- Only 1 time.
+                constructor(props){
+                    super(props)
+                    this.state= {isHot: false, wind: 'breeze'}
+                    // This code is work out the pointing issue of keyword this in changeWeather function
+                    this.changeWeather = this.changeWeather.bind(this)
+                }
+
+                // How many times the render() will be called? ---- 1+n
+                render(){
+                    // return <h2 onClick={this.changeWeather}>Today's weather is {this.state.isHot ? 'super hot' : 'cool'}, and {this.state.wind}</h2>
+
+                    const {isHot, wind} = this.state
+                    return <h2 onClick={this.changeWeather}>Today's weather is {isHot ? 'super hot' : 'cool'} and {wind}</h2>
+                }
+
+                // How many times the changeWeather() will be called? ---- The same amount of the click times.
+                changeWeather(){
+                    // Where to put changeWeather() ? ----- Put on the prototype of Weather, provide instance to use
+                    // Because of the changeWeather() is the callback of onClick, so will call it directly rather than by the instance.
+                    // The functions in the class is in a particial "strict mode", so the this is undefined in changeWeather()
+                    console.log(this)
+                    const isHot = this.state.isHot
+                    this.setState({isHot: !isHot})
+
+                    //Caution: You can not update the value of statue like below, you need to call setState
+                    // this.state.isHot = !isHot
+                }
+            }
+
+            ReactDOM.render(<Weather/>, document.getElementById('test'))
+            /*
+            After executed the ReactDOM.render(<MyComponent />, ...)..., what had happend?
+                1, React will parse the labal component, and then found the MyComponent component.
+                2, Then found the component is definded by a class, then new a instance of this class. and then will call the render() function of the prototyep via the instance.
+                3, Reace will transform the virtual DOM to real DOM, then present it on the page.
+            */
+        </script>
+    </body>
+</html>

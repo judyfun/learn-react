@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1_event</title>
+</head>
+<body>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    /*
+    1). Specify the event processing function via onXxx attribute(Pay attention to the casematters)
+        a. React 使用的是自定义（合成）事件，rather than 使用原生DOM事件 ------ For the better compatibility.
+        b. React 中的事件是通过委托的方式处理的（委托给组件的最外层）------ For the efficiency
+    2). 通过event.target得到发生事件的DOM元素对象 ---------- 不要过度使用ref
+    */
+    class Demo extends React.Component {
+
+        myRef = React.createRef()
+        myRef2 = React.createRef()
+        showData = (event) => {
+            console.log(event.target)
+        }
+
+        showRightData = (event) => {
+            console.log(event.target.value)
+        }
+
+        render() {
+            return (
+                <div>
+                    <input ref={this.myRef}/> &nbsp;
+                    <button onClick={this.showData}>Click me to show the left input content</button>
+                    &nbsp;
+                    <input ref={this.myRef2} onBlur={this.showRightData}/>&nbsp;
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test1'))
+</script>
+</body>
+</html>

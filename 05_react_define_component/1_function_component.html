@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>function_component</title>
-    </head>
-    <body>
-        <div id="test"></div>
-        <!-- Introducing react core lib-->
-        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
-        <!-- Introducing react-dom lib-->
-        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
-        <!-- Introducing babel lib which is used for transform JS from JSX-->
-        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>function_component</title>
+</head>
+<body>
+<div id="test"></div>
+<!-- Introducing react core lib-->
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<!-- Introducing react-dom lib-->
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- Introducing babel lib which is used for transform JS from JSX-->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 
-        <script type="text/babel">
-            // Creating virtual DOM
-            function Demo() {
-                console.log(this) // this -> undefinde, because of it is in strict mode after compiled by babel
-                return <h2>This is the component defined by a function(applicable for simple component)</h2>
-            }
-            // Render the virtual DOM to a container
-            ReactDOM.render(<Demo />, document.getElementById("test"))    
-            /*
-            After executed the ReactDOM.render(<Demo />, ...)..., what had happend?
-                1, React will parse the labal component, and then found the Demo component.
-                2, Then found the component is definded by a function, then call it. Will transform the virtual DOM  to a true DOM,
-                    then present it on the page.
-            */
-        </script>
-    </body>
+<script type="text/babel">
+    // Creating virtual DOM
+    function Demo() {
+        console.log(this) // this -> undefined, because of it is in strict mode after compiled by babel
+        return <h2>This is the component defined by a function(applicable for simple component)</h2>
+    }
+
+    // Render the virtual DOM to a container
+    ReactDOM.render(<Demo/>, document.getElementById("test"))
+    /*
+    After executed the ReactDOM.render(<Demo />, ...)..., what had happened?
+        1, React will parse the label component, and then found the Demo component.
+        2, Then found the component is defined by a function, then call it. Will transform the virtual DOM  to a true DOM,
+            then present it on the page.
+    */
+</script>
+</body>
 </html>
